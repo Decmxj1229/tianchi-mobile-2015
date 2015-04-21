@@ -1,16 +1,21 @@
 __author__ = 'yfwz100'
 
 import random
+import pandas as pd
 
 
-def sample_negative_positive(df, weight=5):
+def sample_negative_positive(df, weight=5, posrate=10):
     """
     Sample the given data frame.
     :param df: the data frame.
     :param weight: the weight of the negative set.
     :return: the sampled data frame.
+    :rtype: pd.DataFrame
     """
     posdf = df[df['label'] > 0]
     negdf = df[df['label'] <= 0]
-    negdf = negdf.ix[random.choice(df.index.values, len(posdf) * weight)]
-    return negdf.append(posdf)
+    seldf = negdf.ix[random.sample(negdf.index, len(posdf) * weight * posrate)]
+    print len(posdf), len(seldf)
+    for i in xrange(posrate):
+        seldf = seldf.append(posdf)
+    return seldf
