@@ -14,29 +14,29 @@ def overall(df, behavior1, behavior2, lt_date):
     """
     len1 = df[(df.date < lt_date) & (df.behavior_type == behavior1)].groupby(['user_id']).size()
     len2 = df[(df.date < lt_date) & (df.behavior_type == behavior2)].groupby(['user_id']).size()
-    return len2 / len1
+    return (len2 / len1).fillna(0)
 
 
-def recent(df, lt_date, behavior1, behavior2, days=1):
+def recent(df, behavior1, behavior2, date, days=1):
     """
     隔天行为转化的条件概率（转化率）。所用算式：intersection(behavior1, behavior2) / behavior1 。
     :param df: 数据集
-    :param lt_date: 小于的日期
+    :param date: 小于的日期
     :param behavior1: 给定日期前一天行为
     :param behavior2: 给定日期的行为
     :param days: 相隔天数
     :return: 转化率的系列
     :rtype: pd.Series
     """
-    prev_date = (dt.datetime.strptime(lt_date, '%Y-%m-%d') - dt.timedelta(days)).strftime('%Y-%m-%d')
+    prev_date = (dt.datetime.strptime(date, '%Y-%m-%d') - dt.timedelta(days)).strftime('%Y-%m-%d')
     users_items1 = df[(df.date == prev_date) & (df.behavior_type == behavior1)].groupby(['user_id', 'item_id']).size()
-    users_items2 = df[(df.date == lt_date) & (df.behavior_type == behavior2)].groupby(['user_id', 'item_id']).size()
+    users_items2 = df[(df.date == date) & (df.behavior_type == behavior2)].groupby(['user_id', 'item_id']).size()
     set1 = set(users_items1.index)
     set2 = set(users_items2.index)
     inter_set = set1.intersection(set2)
     users1 = users_items1[users_items1.index.isin(inter_set)].groupby(level=0).sum()
     users2 = users_items1.groupby(level=0).sum()
-    return users1 / users2
+    return (users1 / users2).fillna(0)
 
 
 def user_to_buy_rate(data, lt_date):

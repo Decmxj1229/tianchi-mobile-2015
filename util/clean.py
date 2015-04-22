@@ -27,6 +27,14 @@ def save_result(topred, filename):
             wr.writerow(row)
 
 
+def ensure_label(df):
+    label = df['label'].copy()
+    del df['label']
+    df['label'] = label
+    print 'Ensured label.'
+    return df
+
+
 def extract_label(df, pred_date):
     """
     Extract the label of the next day of `pred_date`.

@@ -16,6 +16,7 @@ from util.clean import extract_label
 def extract_user_item_behaviors(df, date, days=3, detail_days=1):
     """
     抽取用户商品的特征，主要内容为给定日期的每小时滑动窗口浏览次数，给定日期前 3 天每天的浏览次数，加入收藏、加入购物车的首次时间。
+    过滤了当天购买的数据记录。
     :param df: 数据集
     :param date: 给定的日期
     :return: 整合数据集
@@ -26,7 +27,7 @@ def extract_user_item_behaviors(df, date, days=3, detail_days=1):
         (today - dt.timedelta(d)).strftime('%Y-%m-%d') for d in xrange(days)
     ]
     result = []
-    # Construct the hours features.
+    # 构建小时的行为数（浏览）
     for day in xrange(detail_days):
         for hour in xrange(23):
             result.append(uit.behavior_window_hour_times(df, prev_day[day], hour, label='%d_%%d-%%d' % (day)))
@@ -36,10 +37,11 @@ def extract_user_item_behaviors(df, date, days=3, detail_days=1):
                                                   label="last_%d_%s" % (day, uit.behavior_str[behavior - 1])))
         result.append(uit.behavior_day_times(df, prev_day[day], 1, label="last_%d_browse_times" % (day)))
     rdf = reduce(lambda x, y: x.join(y, how='outer'), result)
-    # Filtered by today's buy logs.
+    # 过滤当天购买的用户/商品对
     selected = df[(df['date'] == prev_day[0]) & (df['behavior_type'] != 4)].groupby(['user_id', 'item_id']).first()
     bought = df[(df['date'] == prev_day[0]) & (df['behavior_type'] == 4)].groupby(['user_id', 'item_id']).first()
     ret = rdf[rdf.index.isin(selected.index) & ~rdf.index.isin(bought.index)]
+    # 填充缺失值
     fillna_list = ret.columns.tolist()
     fillna = dict()
     for i in xrange(23 * detail_days):
@@ -62,7 +64,7 @@ def extract_user_item_behaviors_with_label(df, date, days=3, detail_days=1):
     today = dt.datetime.strptime(date, '%Y-%m-%d')
     last_day = (today - dt.timedelta(1)).strftime('%Y-%m-%d')
     training_data = extract_user_item_behaviors(df, last_day, days, detail_days)
-    # labeled
+    # 添加类标
     tlabel = extract_label(df, date)
     return training_data.join(tlabel, how='left').fillna(0)
 
