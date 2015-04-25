@@ -73,8 +73,8 @@ if __name__ == '__main__':
 
     u = pd.read_csv('data/2nd/tianchi_mobile_recommend_train_user_filtered.csv')
     # 训练数据
-    extract_user_item_behaviors_with_label(u, '2014-12-18').to_csv('data/train/apr10_2014-12-18.csv')
-    # 测试数据
     extract_user_item_behaviors_with_label(u, '2014-12-17').to_csv('data/train/apr10_2014-12-17.csv')
+    # 测试数据
+    extract_user_item_behaviors_with_label(u, '2014-12-18').to_csv('data/train/apr10_2014-12-18.csv')
     # 预览数据
     extract_user_item_behaviors(u, '2014-12-18').to_csv('data/train/predict_2014-12-18.csv')

@@ -59,7 +59,7 @@ if __name__ == '__main__':
                 on=['item_id']
             )
             , 10)
-    ).set_index('user_id').fillna(-1).to_csv('data/sample/apr22_recent_train_2014-12-17.csv')
+    ).set_index('user_id').fillna(-1).to_csv('data/sample/r1/apr22_train_2014-12-17.csv')
 
     # 测试数据
     ensure_label(pd.merge(
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         extract_item_features(m, '2014-12-18'),
         how='left',
         on=['item_id']
-    ).set_index('user_id')).fillna(-1).to_csv('data/sample/apr22_recent_test_2014-12-18.csv')
+    ).set_index('user_id')).fillna(-1).to_csv('data/sample/r1/apr22_test_2014-12-18.csv')
 
     # 预测数据
     pd.merge(
@@ -85,4 +85,4 @@ if __name__ == '__main__':
         extract_item_features(m, '2014-12-19'),
         how='left',
         on=['item_id']
-    ).set_index('user_id').to_csv('data/sample/apr22_recent_predict_2014-12-18.csv')
+    ).set_index('user_id').to_csv('data/sample/r1/apr22_predict_2014-12-18.csv')

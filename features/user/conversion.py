@@ -39,6 +39,34 @@ def recent(df, behavior1, behavior2, date, days=1):
     return (users1 / users2).fillna(0)
 
 
+def recent_avg(df, behavior1, behavior2, date, days=1, avg=3):
+    """
+    :rtype: pd.Series
+    """
+
+    def recent_df(date):
+        prev_date = (dt.datetime.strptime(date, '%Y-%m-%d') - dt.timedelta(days)).strftime('%Y-%m-%d')
+        users_items1 = df[(df.date == prev_date) & (df.behavior_type == behavior1)].groupby(
+            ['user_id', 'item_id']).size()
+        users_items2 = df[(df.date == date) & (df.behavior_type == behavior2)].groupby(['user_id', 'item_id']).size()
+        set1 = set(users_items1.index)
+        set2 = set(users_items2.index)
+        inter_set = set1.intersection(set2)
+        users1 = users_items1[users_items1.index.isin(inter_set)].groupby(level=0).sum()
+        users2 = users_items1.groupby(level=0).sum()
+        return users1, users2
+
+    tmp1 = []
+    tmp2 = []
+    for d in [(dt.datetime.strptime(date, '%Y-%m-%d') - dt.timedelta(i)).strftime('%Y-%m-%d') for i in xrange(avg)]:
+        t = recent_df(d)
+        tmp1.append(t[0])
+        tmp2.append(t[1])
+    sum1 = reduce(lambda a, b: a.add(b, fill_value=0), tmp1)
+    sum2 = reduce(lambda a, b: a.add(b, fill_value=0), tmp2)
+    return sum1.fillna(0).div(sum2.fillna(1), fill_value=0)
+
+
 def user_to_buy_rate(data, lt_date):
     """
     用户加入购物车、浏览、收藏到购买的转化率，用户购买的总次数/用户浏览（收藏、购物车）总次数
