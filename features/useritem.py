@@ -25,6 +25,11 @@ def behavior_first_hour(df, date, behavior, label=None):
     return ret[[key]]
 
 
+def behavior_last_hour(df, date, behavior):
+    ret = df[(df['date'] == date) & (df['behavior_type'] == behavior)].groupby(['user_id', 'item_id']).hour.max()
+    return ret
+
+
 def behavior_day_times(df, date, behavior, label=None):
     """
     Extract times of the behavior by given date.
