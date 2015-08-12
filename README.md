@@ -1,11 +1,11 @@
-°¢ÀïÒÆ¶¯ÍÆ¼öËã·¨±ÈÈü
+é˜¿é‡Œç§»åŠ¨æ¨èç®—æ³•æ¯”èµ›
 =========================
 
-±ÈÈü¹Ù·½ÍøÕ¾£ºhttp://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.8.YVrlcK&raceId=1
+æ¯”èµ›å®˜æ–¹ç½‘ç«™ï¼šhttp://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.8.YVrlcK&raceId=1
 
-±ÈÈü´úÂë²Î¼û²»Í¬µÄ·ÖÖ§£¬ÀıÈç [season1](../season1)¡¢[season2](../season2) ¡£
+æ¯”èµ›ä»£ç å‚è§ä¸åŒçš„åˆ†æ”¯ï¼Œä¾‹å¦‚ [season1](tianchi-mobile-2015/blob/season1)ã€[season2](tianchi-mobile-2015/blob/season2) ã€‚
 
-²ÎÈü³ÉÔ±£º[Zhao Guangming][], [Ma Wenjia][], [Wang Zhi][].
+å‚èµ›æˆå‘˜ï¼š[Zhao Guangming][], [Ma Wenjia][], [Wang Zhi][].
 
 [Zhao Guangming]: https://coding.net/u/lambertzhao 
 [Ma Wenjia]: https://coding.net/u/janice1992
