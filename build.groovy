@@ -80,6 +80,8 @@ class SQLGenerator {
 
     private PrintStream sqlErrOut
     private PrintStream tokenErrOut
+    private PrintStream resultOut
+    private ByteArrayOutputStream resultStream
     private PrintStream out
 
     SQLGenerator(String buildDirectory) {
@@ -89,7 +91,8 @@ class SQLGenerator {
         }
         sqlErrOut = new PrintStream(new FileOutputStream("$buildDirectory/sql_err.log"))
         tokenErrOut = new PrintStream(new FileOutputStream("$buildDirectory/token_err.log"))
-        out = new PrintStream(new FileOutputStream("$buildDirectory/output.sql"))
+        resultOut = new PrintStream(new FileOutputStream("$buildDirectory/result.sql"))
+        out = new PrintStream(resultStream = new ByteArrayOutputStream())
     }
 
     Map<String, TableDep> tableDepMap = new HashMap<>();
@@ -125,7 +128,7 @@ class SQLGenerator {
         stripComments.toString().split(';').each { line ->
             def l = line.trim()
             if (!l.startsWith('drop') && !l.startsWith('show') && !l.startsWith('help') && !l.startsWith('kill') && !l.startsWith('select') && !l.empty) {
-                sqls.add l.replace(':', '_').replace('==', '=').replaceAll('\\s([0-9]+[a-z_]+)', ' t$1')
+                sqls.add l.replace('==', '=').replaceAll('\\s([0-9]+[a-z_]+)', ' t$1').replace(':', '_colon_')
             }
         }
 
@@ -181,6 +184,8 @@ class SQLGenerator {
         tableDepMap.each { table, tableDep ->
             generateDependentSQL(table, tableDepMap, tableNames)
         }
+
+        resultOut.println resultStream.toString().replace('_colon_', ':')
 
         println "Done generating tables."
     }
