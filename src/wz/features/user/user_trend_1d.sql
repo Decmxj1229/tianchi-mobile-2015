@@ -2,7 +2,7 @@
 drop table if exists u_trend_15to16;
 create table u_trend_15to16 as
 select
-    uf_next.user_id
+    uf_next.user_id,
     tanh(uf_next.bws_cnt-uf.bws_cnt) bws_tanh,
     tanh(uf_next.clt_cnt-uf.clt_cnt) clt_tanh,
     tanh(uf_next.crt_cnt-uf.crt_cnt) crt_tanh,
@@ -21,7 +21,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-16'
         group by user_id
@@ -35,7 +35,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-15'
         group by user_id
@@ -44,7 +44,7 @@ from
 ;
 
 drop table if exists u_trend_fix_15to16;
-create table u_trend_fix_15to16 as 
+create table u_trend_fix_15to16 as
 select
     u.user_id,
     case when f.first_interact_time > '2014-12-15' then -999 else bws_trnd end bws_trnd,
@@ -82,7 +82,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-17'
         group by user_id
@@ -96,7 +96,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-16'
         group by user_id
@@ -105,7 +105,7 @@ from
 ;
 
 drop table if exists u_trend_fix_16to17;
-create table u_trend_fix_16to17 as 
+create table u_trend_fix_16to17 as
 select
     u.user_id,
     case when f.first_interact_time > '2014-12-16' then -999 else bws_trnd end bws_trnd,
@@ -143,7 +143,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-18'
         group by user_id
@@ -157,7 +157,7 @@ from
             sum(case when behavior_type=3 then 1 else 0 end) crt_cnt,
             sum(case when behavior_type=4 then 1 else 0 end) buy_cnt,
             count(behavior_type) beh_cnt
-        from mobile_recommend_train_user_filter_item 
+        from mobile_recommend_train_user_filter_item
         where
             substr(time, 1, 10) = '2014-12-17'
         group by user_id
@@ -166,7 +166,7 @@ from
 ;
 
 drop table if exists u_trend_fix_17to18;
-create table u_trend_fix_15to16 as 
+create table u_trend_fix_15to16 as
 select
     u.user_id,
     case when f.first_interact_time > '2014-12-17' then -999 else bws_trnd end bws_trnd,

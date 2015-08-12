@@ -54,7 +54,7 @@ select
     case when f.label is null then 0 else 1 end label
 from
     user_item_behavior_last_hour_2014_12_16 b
-    left outer join 
+    left outer join
     user_item_click_times_win2_2014_12_16 a
     on a.user_id=b.user_id and a.item_id=b.item_id
     left outer join
@@ -121,7 +121,7 @@ select
     case when f.label is null then 0 else 1 end label
 from
     user_item_behavior_last_hour_2014_12_17 b
-    left outer join 
+    left outer join
     user_item_click_times_win2_2014_12_17 a
     on a.user_id=b.user_id and a.item_id=b.item_id
     left outer join
@@ -179,16 +179,16 @@ select
     case when e.operate_times is null then -1 else e.operate_times end last_2_operate_times,
     case when e.last_collect_hour is null then -1 else cast(e.last_collect_hour as bigint) end last_2_collect_hour,
     case when e.last_cart_hour is null then -1 else cast(e.last_cart_hour as bigint) end last_2_cart_hour,
-    case when e.browse_time_span is null then -1 else cast(e.browse_time_span as bigint) end last_2_browse_time_span
+    case when e.browse_time_span is null then -1 else cast(e.browse_time_span as bigint) end last_2_browse_time_span,
     case when g.click_times is null then -1 else g.click_times end last_3_click_times,
     case when g.operate_times is null then -1 else g.operate_times end last_3_operate_times,
     case when g.last_collect_hour is null then -1 else cast(g.last_collect_hour as bigint) end last_3_collect_hour,
     case when g.last_cart_hour is null then -1 else cast(g.last_cart_hour as bigint) end last_3_cart_hour,
-    case when g.browse_time_span is null then -1 else cast(g.browse_time_span as bigint) end last_3_browse_time_span,
+    case when g.browse_time_span is null then -1 else cast(g.browse_time_span as bigint) end last_3_browse_time_span
 --    case when f.label is null then -1 else 1 end label
 from
     user_item_behavior_last_hour_2014_12_18 b
-    left outer join 
+    left outer join
     user_item_click_times_win2_2014_12_18 a
     on a.user_id=b.user_id and a.item_id=b.item_id
     left outer join

@@ -73,7 +73,7 @@ from
         sum(case when (behavior_date = '2014-11-21' or behavior_date = '2014-11-28' or behavior_date = '2014-12-05') then behavior_times else 0 end) w3d1n_buy_cnt,
         sum(case when behavior_date >= '2014-11-20' and behavior_date <= '2014-11-26' then behavior_times else 0 end) p3w1c_buy_cnt,
         sum(case when behavior_date >= '2014-12-04' and behavior_date <= '2014-12-10' then behavior_times else 0 end) p3w1n_buy_cnt
-    fromsdu
+    from
         next_1day_buy_stat
     where
         behavior_type = 4
