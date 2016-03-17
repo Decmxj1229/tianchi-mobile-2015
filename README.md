@@ -3,7 +3,7 @@
 
 比赛官方网站：http://tianchi.aliyun.com/competition/introduction.htm?spm=5176.100066.333.8.YVrlcK&raceId=1
 
-比赛代码参见不同的分支，例如 [season1](tianchi-mobile-2015/tree/master/season1)、[season2](tianchi-mobile-2015/tree/master/season2) 。
+比赛代码参见不同的分支，例如 [season1](season1)、[season2](season2) 。
 
 参赛成员：[Zhao Guangming][], [Ma Wenjia][], [Wang Zhi][].
 
